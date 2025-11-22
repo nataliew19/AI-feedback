@@ -1,0 +1,14 @@
+# Human vs AI Counselor Comparison
+
+| Session                          |   Avg Words/Turn (Human) |   Avg Words/Turn (AI) |   Words Diff % |   Unique Words (Human) |   Unique Words (AI) |   Unique Words Diff % |   TTR (Human) |   TTR (AI) |   Validation (Human) |   Validation (AI) |   Validation Diff % |   Empathy (Human) |   Empathy (AI) |   Empathy Diff % |   Questions (Human) |   Questions (AI) |
+|:---------------------------------|-------------------------:|----------------------:|---------------:|-----------------------:|--------------------:|----------------------:|--------------:|-----------:|---------------------:|------------------:|--------------------:|------------------:|---------------:|-----------------:|--------------------:|-----------------:|
+| therapy_session_401_conversation |                    42.39 |                120.39 |         184.01 |                   1056 |                2044 |                 93.56 |         0.117 |       0.08 |                   23 |               242 |              952.17 |                15 |             80 |           433.33 |                 199 |              465 |
+
+## Summary Statistics
+
+**Average Word Count Difference:** 184.0%
+
+**Average Validation Difference:** 952.2%
+
+**Average Empathy Difference:** 433.3%
+
