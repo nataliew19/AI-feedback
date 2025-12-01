@@ -220,9 +220,8 @@ def generate_llm_responses_from_human_data(input_file="human_responses_50.json",
         print(f"[{i}/{len(human_responses)}] Generating response for {session_id}...")
         print(f"  Client: {client_input[:80]}...")
         
-        # Add delay between requests to avoid rate limits (especially for free tier)
         if i > 1:
-            delay = 3  # 3 seconds between requests for free tier
+            delay = 3  
             time.sleep(delay)
         
         llm_response_text = generate_llm_response(client_input, model=model)
@@ -256,7 +255,6 @@ def generate_llm_responses_from_human_data(input_file="human_responses_50.json",
     return llm_responses
 
 if __name__ == "__main__":
-    # First, let's check what models are available
     print("Checking available models...")
     try:
         list_available_models()
