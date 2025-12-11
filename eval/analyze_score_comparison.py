@@ -266,6 +266,47 @@ def create_plots(scores, output_dir='.'):
     plt.tight_layout()
     plt.savefig(output_path / 'comparison_results_pie.png', dpi=150, bbox_inches='tight')
     plt.close()
+
+    # 6. Frequency histogram: counts per VL category (model vs human)
+    category_labels = sorted(scores['category_scores'].keys())
+    model_counts = []
+    human_counts = []
+
+    for category in category_labels:
+        model_vals = np.array(scores['category_scores'][category]['model'])
+        human_vals = np.array(scores['category_scores'][category]['human'])
+
+        model_wins = int(np.sum(model_vals > human_vals))
+        human_wins = int(np.sum(human_vals > model_vals))
+
+        model_counts.append(model_wins)
+        human_counts.append(human_wins)
+
+    x = np.arange(len(category_labels))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars_model = ax.bar(x - width/2, model_counts, width, label='Model wins', color='#66b3ff')
+    bars_human = ax.bar(x + width/2, human_counts, width, label='Human wins', color='#ff9999')
+
+    ax.set_xlabel('VL Level', fontsize=12)
+    ax.set_ylabel('Count', fontsize=12)
+    ax.set_title('Frequency by VL Level (Model vs Human)', fontsize=14, fontweight='bold')
+    ax.set_xticks(x)
+    ax.set_xticklabels(category_labels)
+    ax.legend()
+    ax.grid(axis='y', alpha=0.3)
+
+    # Add value labels on top of each bar
+    for bars in [bars_model, bars_human]:
+        for bar in bars:
+            height = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width()/2., height, str(height),
+                    ha='center', va='bottom', fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(output_path / 'frequency_histogram_by_vl.png', dpi=150, bbox_inches='tight')
+    plt.close()
     
     print(f"\nPlots saved to: {output_path}")
     print("  - total_scores_boxplot.png")
@@ -273,6 +314,7 @@ def create_plots(scores, output_dir='.'):
     print("  - per_category_comparison.png")
     print("  - score_differences_histogram.png")
     print("  - comparison_results_pie.png")
+    print("  - frequency_histogram_by_vl.png")
 
 def main():
     filepath = 'pushback_comparison_openai_scored.json'
